@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ElectroServe — Servicios de Electricidad</title>
+  <meta name="description" content="Prestación de servicios eléctricos: instalaciones, reparaciones, mantenimiento y emergencias 24/7." />
+  <style>
+    /* ===== Variables y reset ===== */
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent-1: linear-gradient(135deg,#00c2ff 0%, #3ddc97 100%);
+      --accent-2: #ffd166;
+      --muted: #9aa7b2;
+      --glass: rgba(255,255,255,0.04);
+      --radius: 14px;
+      --blur: 8px;
+      --shadow: 0 8px 30px rgba(2,6,23,0.6);
+      font-synthesis: none;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(3,165,255,0.06), transparent 10%),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(61,220,151,0.03), transparent 15%),
+                  var(--bg);
+      color:#e6f0f6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:32px;
+    }
+
+    /* ===== Contenedor principal ===== */
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:28px;
+    }
+
+    header.hero{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+      border-radius: var(--radius);
+      padding:28px;
+      display:flex;
+      gap:20px;
+      align-items:center;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .hero-left{flex:1}
+    .logo{
+      display:inline-grid;
+      grid-auto-flow:column;
+      gap:12px;
+      align-items:center;
+      margin-bottom:12px;
+    }
+    .logo .brand{
+      font-weight:700;
+      font-size:20px;
+      letter-spacing:0.2px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .logo svg{width:44px;height:44px;flex:0 0 44px}
+
+    h1{font-size:28px;margin:0 0 8px}
+    p.lead{margin:0;color:var(--muted)}
+
+    .hero-right{
+      width:320px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+      padding:18px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.03);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .cta{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:0;
+      font-weight:600;
+      cursor:pointer;
+      background:var(--accent-1);
+      color:#052023;
+      box-shadow: 0 8px 18px rgba(3,165,255,0.12);
+    }
+    .btn.ghost{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.04);
+      font-weight:600;
+    }
+
+    /* ===== Servicios ===== */
+    .services{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap:18px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-radius:12px;
+      padding:16px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 6px 20px rgba(2,6,23,0.5);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow:0 18px 40px rgba(2,6,23,0.7); }
+    .card h3{margin:8px 0 6px;font-size:16px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
+    .icon{
+      width:48px;height:48px;
+      display:inline-grid;
+      place-items:center;
+      border-radius:10px;
+      background:var(--glass);
+      margin-bottom:8px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    /* ===== Tarjeta de precios ===== */
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap:18px;
+    }
+    .price{
+      padding:18px;border-radius:12px;background:linear-gradient(180deg,#07121b, #081725);border:1px solid rgba(255,255,255,0.03);
+    }
+    .price h4{margin:0 0 6px}
+    .price .cost{font-weight:800;font-size:22px;margin-bottom:6px}
+    .features{color:var(--muted);font-size:14px;margin-bottom:12px}
+    .price .small{font-size:13px;color:var(--muted)}
+
+    /* ===== Contacto & Footer ===== */
+    .contact{
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    form.contact-form{
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);flex:1;min-width:280px;
+    }
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type="text"], input[type="email"], textarea{
+      width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);
+      background:transparent;color:inherit;font-size:14px;
+      outline:none;
+    }
+    textarea{min-height:110px;resize:vertical}
+    .row{display:flex;gap:8px}
+    .small-card{
+      min-width:240px;
+      background:linear-gradient(180deg,#07121b,#061421);
+      padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .emergency{
+      display:flex;gap:10px;align-items:center;
+      padding:10px;border-radius:10px;background:linear-gradient(90deg,#ff7b7b,#ffd166);
+      color:#1b0a0a;font-weight:700;cursor:pointer;border:0;
+    }
+
+    footer{
+      margin-top:6px;color:var(--muted);font-size:13px;text-align:center;padding:18px;
+      opacity:0.95;
+    }
+
+    /* ===== Modal ===== */
+    .modal{
+      position:fixed;inset:0;display:none;place-items:center;background:rgba(2,6,23,0.5);z-index:60;
+    }
+    .modal.open{display:grid}
+    .modal .dialog{
+      background:linear-gradient(180deg,#06141a,#071a21);padding:18px;border-radius:12px;max-width:520px;width:92%;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    /* ===== Responsive tweaks ===== */
+    @media (max-width:720px){
+      header.hero{flex-direction:column;align-items:stretch}
+      .hero-right{width:100%}
+    }
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .badge{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main">
+
+    <!-- HERO -->
+    <header class="hero" aria-label="Presentación servicio eléctrico">
+      <div class="hero-left">
+        <div class="logo" aria-hidden="false">
+          <!-- Icono simple con rayo -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#00c2ff"/>
+                <stop offset="1" stop-color="#3ddc97"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="64" height="64" rx="12" fill="#04111a"/>
+            <path d="M34 10L20.5 34h11.5L30 54L44.5 30H33L34 10z" fill="url(#g1)"/>
+          </svg>
+          <div class="brand">ElectroServe</div>
+        </div>
+
+        <h1>Servicios eléctricos profesionales — Instalación y emergencias 24/7</h1>
+        <p class="lead">Instalaciones residenciales y comerciales, mantenimiento preventivo, auditoría energética y respuesta en emergencias. Técnicos certificados, garantía y atención rápida.</p>
+
+        <div style="margin-top:14px;">
+          <span class="badge">Técnicos certificados</span>
+          <span class="badge" style="margin-left:8px">Respuesta 24/7</span>
+          <span class="badge" style="margin-left:8px">Presupuestos sin compromiso</span>
+        </div>
+      </div>
+
+      <aside class="hero-right" aria-label="Contacto rápido">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-size:13px;color:var(--muted)">Contacto rápido</div>
+            <div style="font-weight:800;font-size:18px">+57 300 123 4567</div>
+            <div class="muted" style="font-size:13px">Atención 24 horas · Respuesta inmediata</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+            <button class="btn" id="quoteBtn" title="Solicitar cotización">
+              <!-- pequeño icono de papel -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 7h10M7 11h10M7 15h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Cotización
+            </button>
+            <button class="btn ghost" id="chatBtn" title="Chatear">
+              Chat
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-top:8px">
+          <div style="font-size:13px;color:var(--muted);margin-bottom:8px">Servicios prioritarios</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <div class="badge">Instalaciones</div>
+            <div class="badge">Reparaciones</div>
+            <div class="badge">Mantenimiento</div>
+          </div>
+        </div>
+
+      </aside>
+    </header>
+
+    <!-- SERVICIOS -->
+    <section aria-label="Nuestros servicios">
+      <h2 style="margin:0 0 12px">Servicios destacados</h2>
+      <div class="services" role="list">
+        <article class="card" role="listitem">
+          <div class="icon" aria-hidden="true">
+            <!-- enchufe -->
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M8 2v6" stroke="#9be3ff" stroke-width="1.6" stroke-linecap="round"/><path d="M16 2v6" stroke="#9be3ff" stroke-width="1.6" stroke-linecap="round"/><rect x="6" y="8" width="12" height="12" rx="3" stroke="#9be3ff" stroke-width="1.6"/></svg>
+          </div>
+          <h3>Instalaciones eléctricas</h3>
+          <p>Diseño y montaje de redes residenciales y comerciales, tableros, puesta a tierra y señalización con normas técnicas vigentes.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="icon" aria-hidden="true">
+            <!-- herramienta -->
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M14 3l7 7-4 4-7-7" stroke="#ffd166" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 6l7 7" stroke="#ffd166" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Reparaciones y fallas</h3>
+          <p>Diagnóstico y reparación de cortocircuitos, sobrecargas, fusibles, daños por agua y problemas de iluminación.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="icon" aria-hidden="true">
+            <!-- reloj -->
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#b9f6d4" stroke-width="1.4"/><path d="M12 7v6l3 2" stroke="#b9f6d4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Mantenimiento preventivo</h3>
+          <p>Planes periódicos para evitar fallas, optimizar consumo y prolongar vida útil de instalaciones y equipos.</p>
+        </article>
+
+        <article class="card" role="listitem">
+          <div class="icon" aria-hidden="true">
+            <!-- rayo emergencia -->
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" stroke="#ffb3b3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Emergencias 24/7</h3>
+          <p>Atención rápida a fallas peligrosas, incendios eléctricos o cortes que pongan en riesgo usuarios o bienes.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PRECIOS -->
+    <section aria-label="Planes y precios" style="margin-top:8px">
+      <h2 style="margin:0 0 12px">Planes rápidos</h2>
+      <div class="pricing">
+        <div class="price">
+          <h4>Revisión Básica</h4>
+          <div class="cost">$ 80.000</div>
+          <div class="features">Inspección panel, detección de fallas menores y recomendaciones.</div>
+          <div class="small">Ideal para viviendas pequeñas. Tiempo estimado: 1 hora.</div>
+        </div>
+
+        <div class="price">
+          <h4>Mantenimiento Plus</h4>
+          <div class="cost">$ 220.000</div>
+          <div class="features">Limpieza de contactos, pruebas de puesta a tierra y verificación carga.</div>
+          <div class="small">Incluye informe técnico y presupuesto en caso de reparaciones.</div>
+        </div>
+
+        <div class="price">
+          <h4>Instalación estándar</h4>
+          <div class="cost">Desde $ 480.000</div>
+          <div class="features">Cotización según proyecto. Incluye materiales básicos y mano de obra.</div>
+          <div class="small">Visita técnica previa obligatoria.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section aria-label="Contacto" style="margin-top:8px">
+      <h2 style="margin:0 0 12px">Contacto y solicitud</h2>
+      <div class="contact">
+        <form class="contact-form" id="contactForm" onsubmit="event.preventDefault(); handleContactSubmit();">
+          <label for="name">Nombre</label>
+          <input id="name" type="text" placeholder="Tu nombre" required>
+
+          <label for="email" style="margin-top:10px">Email o WhatsApp</label>
+          <input id="email" type="text" placeholder="ejemplo@correo.com o +57 300 ...">
+
+          <label for="message" style="margin-top:10px">Descripción del servicio</label>
+          <textarea id="message" placeholder="Cuéntanos el problema o lo que necesitas..."></textarea>
+
+          <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
+            <button class="btn" type="submit">Enviar solicitud</button>
+            <button class="emergency" type="button" id="emergencyBtn" title="Llamar emergencia">Emergencia - Llamar</button>
+          </div>
+
+          <div id="formFeedback" class="muted" style="margin-top:10px;font-size:13px;display:none"></div>
+        </form>
+
+        <aside class="small-card" aria-label="Información adicional">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="font-weight:800;font-size:18px">+57 300 123 4567</div>
+            <div class="muted" style="font-size:13px">Líneas abiertas 24/7</div>
+          </div>
+
+          <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0">
+
+          <div style="font-size:14px;margin-bottom:8px">Garantía</div>
+          <div class="muted" style="font-size:13px">Todos los trabajos cuentan con garantía de 3 a 12 meses según el tipo de servicio.</div>
+
+          <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0">
+
+          <div style="font-size:14px;margin-bottom:8px">Formas de pago</div>
+          <div class="muted" style="font-size:13px">Efectivo · Transferencia · PSE · Tarjeta en sitio</div>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> ElectroServe · Dirección ficticia · NIT 900.xxx.xxx · Soporte: soporte@electroserve.com
+    </footer>
+  </div>
+
+  <!-- Modal simple -->
+  <div class="modal" id="modal">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h3 id="modalTitle">Contacto de emergencia</h3>
+      <p class="muted">Si hay riesgo de incendio o peligro inmediato, llama al número de emergencias local y a nuestra línea al mismo tiempo.</p>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <a href="tel:+573001234567" class="btn" style="text-decoration:none">Llamar ahora</a>
+        <button class="btn ghost" id="modalClose">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Pequeñas interacciones: cotización, formulario y modal
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const modal = document.getElementById('modal');
+    document.getElementById('emergencyBtn').addEventListener('click', () => {
+      modal.classList.add('open');
+      // foco accesible
+      modal.querySelector('.dialog').focus();
+    });
+    document.getElementById('modalClose').addEventListener('click', () => modal.classList.remove('open'));
+    document.getElementById('quoteBtn').addEventListener('click', () => {
+      // abre el modal como paso intermedio a una cotización
+      alert('Gracias. En breve un asesor se comunicará contigo para la cotización (simulación).');
+    });
+
+    // manejo sencillo del formulario
+    function handleContactSubmit(){
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const feedback = document.getElementById('formFeedback');
+
+      if(!name){
+        feedback.style.display='block';
+        feedback.textContent = 'Por favor ingresa tu nombre.';
+        return;
+      }
+      // simulación de envío
+      feedback.style.display='block';
+      feedback.textContent = 'Solicitud enviada. Un asesor se comunicará en breve al número/email proporcionado.';
+      // limpiar formulario después de 2s (simulado)
+      setTimeout(()=> {
+        document.getElementById('contactForm').reset();
+      }, 1800);
+    }
+
+    // accesibilidad: cerrar modal con Esc
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') modal.classList.remove('open');
+    });
+  </script>
+</body>
+</html>
